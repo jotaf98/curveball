@@ -17,7 +17,7 @@ This code is undergoing refactoring, which may introduce subtle bugs. Also, be a
 ### Installation
 
 Requirements:
-- A recent Matlab installation (at least 2 years old).
+- A recent Matlab installation (at most 2 years old).
 - The latest master version of [MatConvNet](https://github.com/vlfeat/matconvnet) on GitHub.
 - [AutoNN](https://github.com/vlfeat/autonn) (can be installed in the Matlab console with `vl_contrib install autonn`).
 
