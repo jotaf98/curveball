@@ -1,0 +1,6 @@
+*.m~
+*.mexa64
+*.mexw64
+*.ptxa64
+*.ptxw64
+fmad/mex/.build
