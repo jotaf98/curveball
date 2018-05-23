@@ -4,8 +4,8 @@
 
 This is the accompanying code repository for the paper:
 
-João F. Henriques, Sebastien Ehrhardt, Samuel Albanie, Andrea Vedaldi
-**["Small steps and giant leaps: Minimal Newton solvers for Deep Learning"](https://arxiv.org/abs/1805.08095)**
+João F. Henriques, Sebastien Ehrhardt, Samuel Albanie, Andrea Vedaldi  
+**["Small steps and giant leaps: Minimal Newton solvers for Deep Learning"](https://arxiv.org/abs/1805.08095)**  
 arXiv preprint, 2018
 
 
@@ -32,19 +32,19 @@ The first argument is an experiment name (subdirectory to store results), follow
 
 The full parameter list is at the top of the `training.m` file. A few examples follow.
 
-- Basic CIFAR CNN:
+- Basic CIFAR CNN:  
 `training('basic-curveball', 'solver',CurveBall(), 'learningRate',1)`
 
-- Basic CIFAR CNN with Adam baseline:
+- Basic CIFAR CNN with Adam baseline:  
 `training('basic-adam', 'solver',solvers.Adam(), 'learningRate',0.001)`
 
-- Basic CIFAR CNN without batch-norm:
+- Basic CIFAR CNN without batch-norm:  
 `training('basic-nobatchnorm-curveball', 'solver',CurveBall('lambda',10), 'learningRate',1, 'model',models.BasicCifarNet('batchNorm',false))`
 
-- ResNet-18 with dropout:
+- ResNet-18 with dropout:  
 `training('resnet18-dropout0.3-curveball', 'solver',CurveBall(), 'learningRate',1, 'model',cifar_resnet('dropout',0.3))`
 
-- VGG-f on ImageNet-100:
+- VGG-f on ImageNet-100:  
 `training('vggf-curveball', 'dataset','imagenet-100', 'solver',CurveBall(), 'learningRate',1)`
 
 Results for a given dataset can be plotted together and compared using `plot_results`.
