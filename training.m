@@ -3,7 +3,7 @@ function training(experiment, varargin)
 %   Name-value pairs are supported, listed below. See readme for examples.
 
   % options (override by calling script with name-value pairs).
-  % (*) if left empty, the default value for the chosen model will be used.
+  % (-D-) := if left empty, the default value for the chosen model will be used.
   opts.dataset = 'cifar';  % mnist, cifar or imagenet
   [opts, varargin] = vl_argparse(opts, varargin, 'nonrecursive');
 
@@ -30,14 +30,14 @@ function training(experiment, varargin)
 
   opts.resultsDir = [vl_rootnn() '/data/curveball/' opts.dataset '/' experiment];  % results location
   opts.conserveMemory = true;  % whether to conserve memory
-  opts.numEpochs = [];  % epochs (*)
-  opts.batchSize = [];  % batch size (*)
-  opts.learningRate = [];  % learning rate (*)
-  opts.weightDecay = 0;  % weight decay (*)
+  opts.numEpochs = [];  % epochs (-D-)
+  opts.batchSize = [];  % batch size (-D-)
+  opts.learningRate = [];  % learning rate (-D-)
+  opts.weightDecay = 0;  % weight decay (-D-)
   opts.solver = solvers.SGD();  % solver instance to use (type 'help solvers' for a list)
   opts.gpu = 1;  % GPU index, empty for CPU mode
   opts.numThreads = 12;  % number of threads for image reading
-  opts.augmentation = [];  % data augmentation (see datasets.ImageFolder) (*)
+  opts.augmentation = [];  % data augmentation (see datasets.ImageFolder) (-D-)
   opts.savePlot = true;  % whether to save the plot as a PDF file
   opts.continue = false;  % continue from last checkpoint if available
   opts.cifarShift = 2 ;  % number of pixels to shift in CIFAR data augmentation
