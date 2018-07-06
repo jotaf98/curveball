@@ -4,8 +4,8 @@
 
 This is the accompanying code repository for the paper:
 
-João F. Henriques, Sebastien Ehrhardt, Samuel Albanie, Andrea Vedaldi  
-**["Small steps and giant leaps: Minimal Newton solvers for Deep Learning"](https://arxiv.org/abs/1805.08095)**  
+João F. Henriques, Sebastien Ehrhardt, Samuel Albanie, Andrea Vedaldi
+**["Small steps and giant leaps: Minimal Newton solvers for Deep Learning"](https://arxiv.org/abs/1805.08095)**
 arXiv preprint, 2018
 
 
@@ -21,8 +21,7 @@ Requirements:
 - The latest master version of [MatConvNet](https://github.com/vlfeat/matconvnet) on GitHub.
 - [AutoNN](https://github.com/vlfeat/autonn) (can be installed in the Matlab console with `vl_contrib install autonn`).
 
-For speed, the forward-mode automatic differentiation (FMAD) is not all pure Matlab, but uses a couple of custom CUDA kernels (batch-norm and max-pooling switches). This requires compilation, by calling `compile_fmad`.
-
+For speed, the forward-mode automatic differentiation (FMAD) is not all pure Matlab, but uses a couple of custom CUDA kernels (batch-norm and max-pooling switches). This requires compilation. First call compile.sh with your matlab path as argument by calling `compile.sh`. Then compile the rest of the methods by calling `compile_fmad`.
 
 ### Training
 
@@ -32,19 +31,19 @@ The first argument is an experiment name (subdirectory to store results), follow
 
 The full parameter list is at the top of the `training.m` file. A few examples follow.
 
-- Basic CIFAR CNN:  
+- Basic CIFAR CNN:
 `training('basic-curveball', 'solver',CurveBall(), 'learningRate',1)`
 
-- Basic CIFAR CNN with Adam baseline:  
+- Basic CIFAR CNN with Adam baseline:
 `training('basic-adam', 'solver',solvers.Adam(), 'learningRate',0.001)`
 
-- Basic CIFAR CNN without batch-norm:  
+- Basic CIFAR CNN without batch-norm:
 `training('basic-nobatchnorm-curveball', 'solver',CurveBall('lambda',10), 'learningRate',1, 'model',models.BasicCifarNet('batchNorm',false))`
 
-- ResNet-18 with dropout:  
+- ResNet-18 with dropout:
 `training('resnet18-dropout0.3-curveball', 'solver',CurveBall(), 'learningRate',1, 'model',cifar_resnet('dropout',0.3))`
 
-- VGG-f on ImageNet-100:  
+- VGG-f on ImageNet-100:
 `training('vggf-curveball', 'dataset','imagenet-100', 'solver',CurveBall(), 'learningRate',1)`
 
 Results for a given dataset can be plotted together and compared using `plot_results`.
