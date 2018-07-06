@@ -5,7 +5,7 @@
 # specify a different Matlab path by passing it as an argument
 ARGS="-I \"${1:-/usr/local/MATLAB/R2017b}/extern/include\""
 
-declare -a targets=("matlab/pool_switches")
+declare -a targets=("fmad/pool_switches")
 
 for func in "${targets[@]}"
 do
