@@ -11,6 +11,6 @@ for func in "${targets[@]}"
 do
    echo "compiling $func"
    # or do whatever with individual element of the array
-   nvcc --machine 64 -ptx -Xptxas=-v $ARGS matlab/${func}.cu \
-                           --output-file matlab/${func}.ptxa64
+   nvcc --machine 64 -ptx -Xptxas=-v $ARGS ${func}.cu \
+                           --output-file ${func}.ptxa64
 done
