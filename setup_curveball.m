@@ -9,5 +9,5 @@ function setup_curveball()
   if ~exist('Layer', 'class')
     vl_contrib('setup', 'autonn');
   end
-  
+
 end
