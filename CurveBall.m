@@ -255,7 +255,7 @@ function [Hlx, Jl, loss_value] = hessian_grad_loss(net, loss, labels, x)
   if isvector(labels)  % categorical labels
     batch_size = numel(labels);
   else  % regression targets, get last dimension
-    batch_size = size(labels, ndims(labels));
+    batch_size = size(labels, 4);
   end
 
   % get value of last var (assumes only one output)
