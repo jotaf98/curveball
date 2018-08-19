@@ -98,12 +98,12 @@ function training(experiment, varargin)
     end
   end
   net = Net(output, 'conserveMemory', opts.conserveMemory);
-  
+
 
   %
   % set up solver and dataset
   %
-  
+
   % set solver learning rate
   solver = opts.solver;
   solver.learningRate = opts.learningRate(1) ;
@@ -111,25 +111,25 @@ function training(experiment, varargin)
   if ~baseline
     solver.net = net;
   end
-  
+
   % initialize dataset
   augmenter = @deal;
   switch opts.dataset
   case 'mnist'
     dataset = datasets.MNIST(opts.dataDir, 'batchSize', opts.batchSize);
-    
+
   case 'cifar'
     dataset = datasets.CIFAR10(opts.dataDir, 'batchSize', opts.batchSize);
     % data augmentation: horizontal flips, and shifts of a few pixels
     shift = opts.cifarShift;
     augmenter = @(images) small_image_augmentation(images, shift);
-    
+
   case {'imagenet', 'imagenet-100'}
     dataset = datasets.ImageNet('dataDir', opts.dataDir, ...
       'imageSize', defaults.imageSize, 'useGpu', ~isempty(opts.gpu));
     dataset.augmentation = opts.augmentation;
     dataset.numThreads = opts.numThreads;
-    
+
     % smaller imagenet subset
     if strcmp(opts.dataset, 'imagenet-100')
       subset = dlmread('imagenet-subset.txt');
@@ -156,9 +156,9 @@ function training(experiment, varargin)
 
   % enable GPU mode
   net.useGpu(opts.gpu);
-  
+
   non_grad_params = [net.params([net.params.trainMethod] ~= 1).var];
-  
+
   for epoch = startEpoch : opts.numEpochs
     % get the learning rate for this epoch, if there is a schedule
     if epoch <= numel(opts.learningRate)
@@ -181,6 +181,7 @@ function training(experiment, varargin)
       if baseline
         % simple backprop
         net.eval({'images', images, 'labels', labels});
+        pred_value = net.getValue('predictions');
 
         solver.step(net);
 
@@ -188,6 +189,7 @@ function training(experiment, varargin)
       else
         % use CurveBall method. first, evaluate network on inputs
         net.eval({'images', images}, 'forward');
+        pred_value = net.getValue('predictions');
 
         % do a step
         solver.labels = labels;
@@ -197,9 +199,8 @@ function training(experiment, varargin)
       end
 
       % compute classification error and update statistics
-      pred_value = net.getValue('predictions');
       assert(all(isfinite(pred_value(:))), 'Optimization diverged.');
-      
+
       err_value = vl_nnloss(pred_value, labels, 'loss', 'classerror');
       stats.update('obj', obj_value, 'err', err_value);
 
@@ -268,7 +269,7 @@ function str = eta(batchTime, batch, batchesPerEpoch, epoch, numEpochs)
   % generate string estimating the time of completion
   completed = batch + batchesPerEpoch * (epoch - 1);
   total = batchesPerEpoch * numEpochs;
-  
+
   secs = (total - completed) * batchTime / 1000 ;
   str = duration(0, 0, secs) ;
 end
