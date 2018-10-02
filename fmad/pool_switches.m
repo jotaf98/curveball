@@ -17,8 +17,8 @@ function idx = pool_switches(x, pool, stride, pad)
   end
 
   % validate inputs
-  assert(isa(x, 'gpuArray'));
-  assert(strcmp(classUnderlying(x), 'single'));
+  assert(isa(x, 'gpuArray'), 'Only GPU mode is supported.');
+  assert(strcmp(classUnderlying(x), 'single'), 'Only tensors of type single are supported.');
 
   if isscalar(pool), pool = pool([1 1]); end
   if isscalar(stride), stride = stride([1 1]); end
