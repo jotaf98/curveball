@@ -288,7 +288,7 @@ function [Hlx, Jl, loss_value] = hessian_grad_loss(net, loss, labels, x)
       px = sum(p .* x, 3);
     end
 
-    % now finish computing Hl * x = diag(p) * x - p * p' * x
+    % now finish computing Hl * x = diag(p) * x - p * p' * x for every sample.
     Hlx = p .* x - p .* px;
     Hlx = Hlx / batch_size;
 
